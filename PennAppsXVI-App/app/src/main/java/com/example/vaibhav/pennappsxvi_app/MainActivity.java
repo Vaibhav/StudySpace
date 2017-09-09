@@ -49,9 +49,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static android.R.attr.id;
-
-
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
@@ -92,14 +89,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         mPublishSwitch = (Switch) findViewById(R.id.publish_switch);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        DatabaseReference devicesRef = mDatabase.child("aea925bad7343ffc").child("num_devices");
-        DatabaseReference locationRef = mDatabase.child("aea925bad7343ffc").child("location");
         DatabaseReference AT1 = mDatabase.child("aea925bad7343ffc");
 
         table = (TableLayout) findViewById(R.id.MainTableLayout);
-        String tmp = devicesRef.toString();
-        Log.d(TAG, "Value of tmp: " + tmp);
 
 
         // Build the message that is going to be published. This contains the device name and a
