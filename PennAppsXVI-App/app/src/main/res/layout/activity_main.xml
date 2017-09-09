@@ -7,6 +7,23 @@
     android:layout_height="match_parent"
     tools:context="com.example.vaibhav.pennappsxvi_app.MainActivity">
 
+
+    <Switch
+        android:id="@+id/subscribe_switch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/discover_nearby_devices"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <Switch
+        android:id="@+id/publish_switch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/share_device_information"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="0dp" />
+
     <TableLayout
         android:id="@+id/MainTableLayout"
         android:layout_width="368dp"

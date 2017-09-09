@@ -82,12 +82,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         setContentView(R.layout.activity_main);
 
+        mSubscribeSwitch = (Switch) findViewById(R.id.subscribe_switch);
+        mPublishSwitch = (Switch) findViewById(R.id.publish_switch);
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         DatabaseReference devicesRef = mDatabase.child("aea925bad7343ffc").child("num_devices");
         DatabaseReference locationRef = mDatabase.child("aea925bad7343ffc").child("location");
         DatabaseReference AT1 = mDatabase.child("aea925bad7343ffc");
-
 
         table = (TableLayout) findViewById(R.id.MainTableLayout);
         String tmp = devicesRef.toString();
