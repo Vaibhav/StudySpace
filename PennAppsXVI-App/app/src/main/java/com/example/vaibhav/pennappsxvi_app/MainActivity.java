@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 Long numDevicesValue = (Long)dataSnapshot.child("num_devices").getValue();
 
                 Log.d("TESTING", "Location Value is: " + locValue);
-                Log.d("TESTING", "Devices Value is: " + locValue);
+                Log.d("TESTING", "Devices Value is: " + numDevicesValue);
 
                 boolean locationFound = false;
 
@@ -108,11 +108,16 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         if (!locationFound) {
-                            locationsList.add(locValue);
                             int numberOfLocations = locationsList.size();
-                            TableRow curRow = (TableRow)table.getChildAt(numberOfLocations);
+                            Log.d("TESTING", "numofLocs Value is: " + numberOfLocations);
+                            TableRow curRow = (TableRow)table.getChildAt(numberOfLocations+1);
+
                             TextView curLocView = (TextView)curRow.getChildAt(0);
                             TextView curDevView = (TextView)curRow.getChildAt(1);
+
+                            Log.d("TESTING", "Location Value is: " + curLocView.getText());
+                            Log.d("TESTING", "Devices Value is: " + curDevView.getText());
+
                             curLocView.setText(locValue);
                             curDevView.setText(numDevicesValue.toString());
                         }
