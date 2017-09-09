@@ -85,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         setContentView(R.layout.activity_main);
 
-        mSubscribeSwitch = (Switch) findViewById(R.id.subscribe_switch);
         mPublishSwitch = (Switch) findViewById(R.id.publish_switch);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();

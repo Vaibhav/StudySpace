@@ -24,15 +24,6 @@
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="0dp" />
 
-        <Switch
-            android:id="@+id/subscribe_switch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/discover_nearby_devices"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="0dp" />
-
         <TableLayout
             android:id="@+id/MainTableLayout"
             android:layout_width="match_parent"
