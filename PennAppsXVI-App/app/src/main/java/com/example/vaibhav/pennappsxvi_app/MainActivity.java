@@ -114,21 +114,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             }
         };
 
-        mSubscribeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // If GoogleApiClient is connected, perform sub actions in response to user action.
-                // If it isn't connected, do nothing, and perform sub actions when it connects (see
-                // onConnected()).
-                if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
-                    if (isChecked) {
-                        subscribe();
-                    } else {
-                        unsubscribe();
-                    }
-                }
-            }
-        });
 
         mPublishSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -139,8 +124,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
                     if (isChecked) {
                         publish();
+                        table.setVisibility(View.VISIBLE);
                     } else {
                         unpublish();
+                        table.setVisibility(View.INVISIBLE);
                     }
                 }
             }
@@ -247,48 +234,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         // again if necessary.
         if (mPublishSwitch.isChecked()) {
             publish();
+            table.setVisibility(View.VISIBLE);
         }
-        if (mSubscribeSwitch.isChecked()) {
-            subscribe();
-        }
+
     }
 
-    /**
-     * Subscribes to messages from nearby devices and updates the UI if the subscription either
-     * fails or TTLs.
-     */
-    private void subscribe() {
-        Log.i(TAG, "Subscribing");
-        mNearbyDevicesArrayAdapter.clear();
-        SubscribeOptions options = new SubscribeOptions.Builder()
-                .setStrategy(PUB_SUB_STRATEGY)
-                .setCallback(new SubscribeCallback() {
-                    @Override
-                    public void onExpired() {
-                        super.onExpired();
-                        Log.i(TAG, "No longer subscribing");
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                mSubscribeSwitch.setChecked(false);
-                            }
-                        });
-                    }
-                }).build();
-
-        Nearby.Messages.subscribe(mGoogleApiClient, mMessageListener, options)
-                .setResultCallback(new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(@NonNull Status status) {
-                        if (status.isSuccess()) {
-                            Log.i(TAG, "Subscribed successfully.");
-                        } else {
-                            logAndShowSnackbar("Could not subscribe, status = " + status);
-                            mSubscribeSwitch.setChecked(false);
-                        }
-                    }
-                });
-    }
 
     /**
      * Publishes a message to nearby devices and updates the UI if the publication either fails or
