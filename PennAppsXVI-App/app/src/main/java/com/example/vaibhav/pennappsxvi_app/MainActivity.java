@@ -2,7 +2,6 @@ package com.example.vaibhav.pennappsxvi_app;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.ArraySet;
 import android.util.Log;
 import android.view.View;
 import android.widget.TableLayout;
@@ -160,11 +159,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         mNearbyDevicesArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
                 nearbyDevicesArrayList);
-        /*
-        final ListView nearbyDevicesListView = (ListView) findViewById(R.id.nearby_devices_list_view);
-        if (nearbyDevicesListView != null) {
-            nearbyDevicesListView.setAdapter(mNearbyDevicesArrayAdapter);
-        }*/
 
         buildGoogleApiClient();
 
@@ -227,27 +221,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         });
 
     }
-
-    // ??
-    /*
-    private void getLocation() {
-        Log.d(TAG, "getLocation");
-
-        location = new SimpleLocation(this);
-
-        if (!location.hasLocationEnabled()) {
-            // ask the user to enable location access
-            SimpleLocation.openSettings(this);
-        }
-
-        location.setListener(new SimpleLocation.Listener() {
-            public void onPositionChanged() {
-                Log.d(TAG, "onPositionChanged");
-                Log.d(TAG, Double.toString(location.getLongitude()));
-            }
-        });
-    }
-    */
 
     private void buildGoogleApiClient() {
         if (mGoogleApiClient != null) {
@@ -361,6 +334,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     }
                 });
     }
+
 
     /**
      * Stops subscribing to messages from nearby devices.
