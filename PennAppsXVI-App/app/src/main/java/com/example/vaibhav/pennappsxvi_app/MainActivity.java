@@ -17,6 +17,10 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
+    private TableLayout table;
+    private DatabaseReference mDatabase;
+    private FirebaseDatabase database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,19 +28,23 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
+        database = FirebaseDatabase.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        Log.d("TESTING", "Before Database");
+        DatabaseReference myRef = mDatabase.child("aea925bad7343ffc").child("num_devices");
+        Log.d("TESTING", "After Database");
 
-        myRef.setValue("Hello, World!");
+        table = (TableLayout) findViewById(R.id.MainTableLayout);
+        String tmp = myRef.toString();
+        Log.d("TESTING", "Value of tmp: " + tmp);
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
+                Long value = (Long)dataSnapshot.getValue();
                 Log.d("TESTING", "Value is: " + value);
-
 
                 TableLayout table = (TableLayout) findViewById(R.id.MainTableLayout);
                 for(int i = 0; i < table.getChildCount(); i++) {
@@ -46,8 +54,9 @@ public class MainActivity extends AppCompatActivity {
                         // for instance...
                         TableRow row = (TableRow) view;
                         for(int j = 0; j < row.getChildCount(); j++) {
-                            TextView tv = (TextView)row.getChildAt(j);
-                            tv.setText(value);
+                            TextView tv = (TextView)row.getChildAt(1);
+                            tv.setText(value.toString());
+
                         }
                     }
                 }
@@ -63,6 +72,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /*
+    public void UpdateTable(String value){
 
+        for(int i = 0; i < table.getChildCount(); i++) {
+            View view = table.getChildAt(i);
+            if (view instanceof TableRow) {
+
+                TableRow row = (TableRow) view;
+
+                for(int j = 0; j < row.getChildCount(); j++) {
+                    TextView tv = (TextView)row.getChildAt(j);
+                    tv.setText(value);
+                }
+
+            }
+        }
+    }
+    */
 
 }
