@@ -160,10 +160,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         mNearbyDevicesArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
                 nearbyDevicesArrayList);
+        /*
         final ListView nearbyDevicesListView = (ListView) findViewById(R.id.nearby_devices_list_view);
         if (nearbyDevicesListView != null) {
             nearbyDevicesListView.setAdapter(mNearbyDevicesArrayAdapter);
-        }
+        }*/
+
         buildGoogleApiClient();
 
 
