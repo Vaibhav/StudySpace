@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PennAppsXVI-App</string>
+    <string name="location">Location</string>
+    <string name="num_of_devices">Number of Devices</string>
 </resources>

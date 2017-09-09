@@ -8,16 +8,21 @@
     tools:context="com.example.vaibhav.pennappsxvi_app.MainActivity">
 
     <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        android:layout_width="368dp"
+        android:layout_height="495dp"
+        android:stretchColumns="0,1"
+        android:gravity="center"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
+
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="1dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="8dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -26,7 +31,7 @@
                 android:layout_margin="1dp"
                 android:background="#FFFFFF"
                 android:gravity="center"
-                android:text=" Location "
+                android:text="@string/location"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textStyle="bold" />
 
@@ -37,16 +42,18 @@
                 android:layout_margin="1dp"
                 android:background="#FFFFFF"
                 android:gravity="center"
-                android:text=" Number of Devices "
+                android:text="@string/num_of_devices"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textStyle="bold" />
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="1dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="8dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -55,7 +62,7 @@
                 android:layout_margin="1dp"
                 android:background="#FFFFFF"
                 android:gravity="center"
-                android:text=" Location "
+                android:text="A"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/black" />
 
@@ -66,16 +73,18 @@
                 android:layout_margin="1dp"
                 android:background="#FFFFFF"
                 android:gravity="center"
-                android:text=" Number of Devices "
+                android:text="10"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/black" />
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="1dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="8dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -84,7 +93,7 @@
                 android:layout_margin="1dp"
                 android:background="#FFFFFF"
                 android:gravity="center"
-                android:text=" Location "
+                android:text="B"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/black" />
 
@@ -95,16 +104,18 @@
                 android:layout_margin="1dp"
                 android:background="#FFFFFF"
                 android:gravity="center"
-                android:text=" Number of Devices "
+                android:text="12"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/black" />
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="1dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="8dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -113,7 +124,7 @@
                 android:layout_margin="1dp"
                 android:background="#FFFFFF"
                 android:gravity="center"
-                android:text=" Location "
+                android:text="C"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/black" />
 
@@ -124,17 +135,19 @@
                 android:layout_margin="1dp"
                 android:background="#FFFFFF"
                 android:gravity="center"
-                android:text=" Number of Devices "
+                android:text="54"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/black" />
         </TableRow>
 
 
         <TableRow
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="1dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="8dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -143,7 +156,7 @@
                 android:layout_margin="1dp"
                 android:background="#FFFFFF"
                 android:gravity="center"
-                android:text=" Location "
+                android:text="D"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/black" />
 
@@ -154,16 +167,18 @@
                 android:layout_margin="1dp"
                 android:background="#FFFFFF"
                 android:gravity="center"
-                android:text=" Number of Devices "
+                android:text="43"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/black" />
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="1dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="8dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -172,7 +187,7 @@
                 android:layout_margin="1dp"
                 android:background="#FFFFFF"
                 android:gravity="center"
-                android:text=" Location "
+                android:text="E"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/black" />
 
@@ -183,7 +198,7 @@
                 android:layout_margin="1dp"
                 android:background="#FFFFFF"
                 android:gravity="center"
-                android:text=" Number of Devices "
+                android:text="13"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/black" />
         </TableRow>
