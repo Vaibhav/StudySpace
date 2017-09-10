@@ -44,7 +44,11 @@ import com.google.android.gms.nearby.messages.PublishOptions;
 import com.google.android.gms.nearby.messages.Strategy;
 import com.google.android.gms.nearby.messages.SubscribeCallback;
 import com.google.android.gms.nearby.messages.SubscribeOptions;
+import com.google.gson.Gson;
 
+import java.nio.charset.Charset;
+import java.security.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -69,15 +73,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private MessageListener mMessageListener;
     private ArrayAdapter<String> mNearbyDevicesArrayAdapter;
     List<Student> students = new ArrayList<>();
+    private static final Gson gson = new Gson();
 
-    private static String getUUID(SharedPreferences sharedPreferences) {
-        String uuid = sharedPreferences.getString(KEY_UUID, "");
-        if (TextUtils.isEmpty(uuid)) {
-            uuid = UUID.randomUUID().toString();
-            sharedPreferences.edit().putString(KEY_UUID, uuid).apply();
-        }
-        return uuid;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,21 +94,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         // Build the message that is going to be published. This contains the device name and a
         // UUID.
-        // mPubMessage = DeviceMessage.newNearbyMessage(getUUID(getSharedPreferences(getApplicationContext().getPackageName(), Context.MODE_PRIVATE)));
-
-        mMessageListener = new MessageListener() {
-            @Override
-            public void onFound(final Message message) {
-                // Called when a new message is found.
-                // mNearbyDevicesArrayAdapter.add(DeviceMessage.fromNearbyMessage(message).getMessageBody());
-            }
-
-            @Override
-            public void onLost(final Message message) {
-                // Called when a message is no longer detectable nearby.
-                // mNearbyDevicesArrayAdapter.remove(DeviceMessage.fromNearbyMessage(message).getMessageBody());
-            }
-        };
+        Student testStudent = new Student();
+        testStudent.setName("TestVaibhav");
+        Long timeStamp = new java.util.Date().getTime();
+        Log.d(TAG, timeStamp.toString());
+        testStudent.setTimestampIn(timeStamp);
+        testStudent.setTimestampOut(timeStamp);
+        mPubMessage = new Message(gson.toJson(testStudent).getBytes(Charset.forName("UTF-8")));
 
 
         mPublishSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -182,7 +171,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 room.setMaximumOccupancy((int) maxOcc);
                 room.setStudents(students);
 
-
                 boolean locationFound = false;
 
                 View view = table.getChildAt(1);
@@ -208,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
                         TextView curLocView = (TextView) curRow.getChildAt(0);
                         TextView curDevView = (TextView) curRow.getChildAt(1);
-                        
+
                         curLocView.setText(buildingName + " " + roomNumber);
                         curDevView.setText(Long.toString(curOcc) + "/" + Long.toString(maxOcc));
                     }
@@ -303,14 +291,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 });
     }
 
-
-    /**
-     * Stops subscribing to messages from nearby devices.
-     */
-    private void unsubscribe() {
-        Log.i(TAG, "Unsubscribing.");
-        Nearby.Messages.unsubscribe(mGoogleApiClient, mMessageListener);
-    }
 
     /**
      * Stops publishing message to nearby devices.

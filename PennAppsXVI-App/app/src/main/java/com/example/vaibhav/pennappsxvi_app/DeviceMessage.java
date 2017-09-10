@@ -72,8 +72,8 @@ class Room implements Serializable {
 class Student {
 
     public String name;
-    public String timestamp_in;
-    public String timestamp_out;
+    public long timestamp_in;
+    public long timestamp_out;
 
     public String getName() {
         return name;
@@ -83,19 +83,19 @@ class Student {
         this.name = name;
     }
 
-    public String getTimestampIn() {
+    public long getTimestampIn() {
         return timestamp_in;
     }
 
-    public void setTimestampIn(String timestampIn) {
+    public void setTimestampIn(long timestampIn) {
         this.timestamp_in = timestampIn;
     }
 
-    public String getTimestampOut() {
+    public long getTimestampOut() {
         return timestamp_out;
     }
 
-    public void setTimestampOut(String timestampOut) {
+    public void setTimestampOut(long timestampOut) {
         this.timestamp_out = timestampOut;
     }
 
