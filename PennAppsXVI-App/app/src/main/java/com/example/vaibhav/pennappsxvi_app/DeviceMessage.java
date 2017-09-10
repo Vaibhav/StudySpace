@@ -5,44 +5,98 @@ import android.os.Build;
 import com.google.android.gms.nearby.messages.Message;
 import com.google.gson.Gson;
 
+import java.io.Serializable;
 import java.nio.charset.Charset;
+import java.util.List;
 
 /**
  * Created by Vaibhav on 2017-09-09.
  */
 
-public class DeviceMessage {
-    private static final Gson gson = new Gson();
+class DeviceMessage {
 
-    private final String mUUID;
-    private final String mMessageBody;
+    private String mBuilding;
+    private Room mRoom;
 
-    /**
-     * Builds a new {@link Message} object using a unique identifier.
-     */
-    public static Message newNearbyMessage(String instanceId) {
-        DeviceMessage deviceMessage = new DeviceMessage(instanceId);
-        return new Message(gson.toJson(deviceMessage).getBytes(Charset.forName("UTF-8")));
+    public String getBuilding() {
+        return mBuilding;
     }
 
-    /**
-     * Creates a {@code DeviceMessage} object from the string used to construct the payload to a
-     * {@code Nearby} {@code Message}.
-     */
-    public static DeviceMessage fromNearbyMessage(Message message) {
-        String nearbyMessageString = new String(message.getContent()).trim();
-        return gson.fromJson(
-                (new String(nearbyMessageString.getBytes(Charset.forName("UTF-8")))),
-                DeviceMessage.class);
+    public void setBuilding(String building) {
+        this.mBuilding = building;
     }
 
-    private DeviceMessage(String uuid) {
-        mUUID = uuid;
-        mMessageBody = Build.MODEL;
-        // TODO(developer): add other fields that must be included in the Nearby Message payload.
+    public Room getRoom() {
+        return mRoom;
     }
 
-    protected String getMessageBody() {
-        return mMessageBody;
+    public void setRoom(Room room) {
+        this.mRoom = room;
     }
+}
+
+
+class Room implements Serializable {
+
+    public int current_occupancy;
+    public int maximum_occupancy;
+    List<Student> students;
+
+    public int getCurrentOccupancy() {
+        return current_occupancy;
+    }
+
+    public void setCurrentOccupancy(int currentOccupancy) {
+        this.current_occupancy = currentOccupancy;
+    }
+
+    public int getMaximumOccupancy() {
+        return maximum_occupancy;
+    }
+
+    public void setMaximumOccupancy(int maximumOccupancy) {
+        this.maximum_occupancy = maximumOccupancy;
+    }
+
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+}
+
+
+class Student {
+
+    public String name;
+    public String timestamp_in;
+    public String timestamp_out;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTimestampIn() {
+        return timestamp_in;
+    }
+
+    public void setTimestampIn(String timestampIn) {
+        this.timestamp_in = timestampIn;
+    }
+
+    public String getTimestampOut() {
+        return timestamp_out;
+    }
+
+    public void setTimestampOut(String timestampOut) {
+        this.timestamp_out = timestampOut;
+    }
+
 }

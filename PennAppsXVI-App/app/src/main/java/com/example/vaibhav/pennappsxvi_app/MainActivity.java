@@ -46,6 +46,7 @@ import com.google.android.gms.nearby.messages.SubscribeCallback;
 import com.google.android.gms.nearby.messages.SubscribeOptions;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private Message mPubMessage;
     private MessageListener mMessageListener;
     private ArrayAdapter<String> mNearbyDevicesArrayAdapter;
+    List<Student> students;
 
     private static String getUUID(SharedPreferences sharedPreferences) {
         String uuid = sharedPreferences.getString(KEY_UUID, "");
@@ -88,29 +90,26 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         mPublishSwitch = (Switch) findViewById(R.id.publish_switch);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference AT1 = mDatabase.child("aea925bad7343ffc");
+        DatabaseReference AT1 = mDatabase.child("MC");
 
         table = (TableLayout) findViewById(R.id.MainTableLayout);
 
 
         // Build the message that is going to be published. This contains the device name and a
         // UUID.
-        mPubMessage = DeviceMessage.newNearbyMessage(getUUID(getSharedPreferences(
-                getApplicationContext().getPackageName(), Context.MODE_PRIVATE)));
+        // mPubMessage = DeviceMessage.newNearbyMessage(getUUID(getSharedPreferences(getApplicationContext().getPackageName(), Context.MODE_PRIVATE)));
 
         mMessageListener = new MessageListener() {
             @Override
             public void onFound(final Message message) {
                 // Called when a new message is found.
-                mNearbyDevicesArrayAdapter.add(
-                        DeviceMessage.fromNearbyMessage(message).getMessageBody());
+                // mNearbyDevicesArrayAdapter.add(DeviceMessage.fromNearbyMessage(message).getMessageBody());
             }
 
             @Override
             public void onLost(final Message message) {
                 // Called when a message is no longer detectable nearby.
-                mNearbyDevicesArrayAdapter.remove(
-                        DeviceMessage.fromNearbyMessage(message).getMessageBody());
+                // mNearbyDevicesArrayAdapter.remove(DeviceMessage.fromNearbyMessage(message).getMessageBody());
             }
         };
 
@@ -140,21 +139,49 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         buildGoogleApiClient();
 
+        if (mPublishSwitch.isChecked()) {
+            publish();
+            table.setVisibility(View.VISIBLE);
+        } else if (!(mPublishSwitch.isChecked())) {
+            table.setVisibility(View.INVISIBLE);
+        }
 
         AT1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                String locValue = (String) dataSnapshot.child("location").getValue();
-                Long numDevicesValue = (Long) dataSnapshot.child("num_devices").getValue();
 
-                Log.d(TAG, "Location Value is: " + locValue);
-                Log.d(TAG, "Devices Value is: " + numDevicesValue);
+                long curOcc = 0;
+                long maxOcc = 0;
+
+                Log.d(TAG + " Count " ,"" + dataSnapshot.getChildrenCount());
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+
+                    curOcc = (long)postSnapshot.child("current_occupancy").getValue();
+                    maxOcc = (long)postSnapshot.child("maximum_occupancy").getValue();
+
+                    Log.d(TAG + " Get Data", postSnapshot.child("current_occupancy").getValue().toString());
+
+                    for (DataSnapshot studentSnap: postSnapshot.child("students").getChildren()) {
+                        Student stu = studentSnap.getValue(Student.class);
+                        students.add(stu);
+                        Log.d(TAG + " Student ", stu.getName());
+                        Log.d(TAG + " Student ", stu.getTimestampIn());
+                        Log.d(TAG + " Student ", stu.getTimestampOut());
+                    }
+
+                }
+
+                Room room = new Room();
+                room.setCurrentOccupancy((int) curOcc);
+                room.setMaximumOccupancy((int) maxOcc);
+                room.setStudents(students);
+
 
                 boolean locationFound = false;
 
-
+                /*
                 View view = table.getChildAt(1);
                 if (view instanceof TableRow) {
                     // then, you can remove the the row you want...
@@ -187,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
 
                 }
-
+                */
 
             }
 
