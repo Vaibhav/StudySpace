@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PennAppsXVI-App</string>
+    <string name="app_name">Study Space</string>
     <string name="location">Location</string>
     <string name="num_of_devices">Number of Devices</string>
     <string name="discover_nearby_devices">Discover nearby devices</string>
