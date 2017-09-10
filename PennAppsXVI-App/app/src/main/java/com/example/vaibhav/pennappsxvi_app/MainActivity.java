@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         // Build the message that is going to be published. This contains the device name and a
         // UUID.
         Student testStudent = new Student();
-        testStudent.setName("TestVaibhav");
+        testStudent.setName("Bobby");
         Long timeStamp = new java.util.Date().getTime();
         Log.d(TAG, timeStamp.toString());
         testStudent.setTimestampIn(timeStamp);
@@ -160,8 +160,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         Student stu = studentSnap.getValue(Student.class);
                         students.add(stu);
                         Log.d(TAG + " Student ", stu.getName());
-                        Log.d(TAG + " Student ", stu.getTimestampIn());
-                        Log.d(TAG + " Student ", stu.getTimestampOut());
                     }
 
                 }
