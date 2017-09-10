@@ -146,62 +146,62 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 String buildingName, roomNumber = "test";
 
                 buildingName = dataSnapshot.getKey();
+                int count = 1;
 
-
-                Log.d(TAG + " Count " ,"" + dataSnapshot.getChildrenCount());
+                Log.d(TAG + " Children " ,"" + dataSnapshot.getChildrenCount());
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     roomNumber = postSnapshot.getKey();
-                    curOcc = (long)postSnapshot.child("current_occupancy").getValue();
-                    maxOcc = (long)postSnapshot.child("maximum_occupancy").getValue();
+                    curOcc = (long) postSnapshot.child("current_occupancy").getValue();
+                    maxOcc = (long) postSnapshot.child("maximum_occupancy").getValue();
 
                     Log.d(TAG + " Get Data", postSnapshot.child("current_occupancy").getValue().toString());
 
-                    for (DataSnapshot studentSnap: postSnapshot.child("students").getChildren()) {
+                    for (DataSnapshot studentSnap : postSnapshot.child("students").getChildren()) {
                         Student stu = studentSnap.getValue(Student.class);
                         students.add(stu);
                         Log.d(TAG + " Student ", stu.getName());
                     }
 
-                }
 
-                Room room = new Room();
-                room.setCurrentOccupancy((int) curOcc);
-                room.setMaximumOccupancy((int) maxOcc);
-                room.setStudents(students);
+                    Room room = new Room();
+                    room.setCurrentOccupancy((int) curOcc);
+                    room.setMaximumOccupancy((int) maxOcc);
+                    room.setStudents(students);
 
-                boolean locationFound = false;
-
-                View view = table.getChildAt(1);
-                if (view instanceof TableRow) {
-                    // then, you can remove the the row you want...
-                    // for instance...
-                    TableRow row = (TableRow) view;
-                    for (int j = 0; j < row.getChildCount(); j++) {
-                        TextView tv = (TextView) row.getChildAt(0);
-                        String curText = tv.getText().toString();
-                        if (buildingName + " " + roomNumber == curText) {
-                            locationFound = true;
-                            TextView devicesView = (TextView)row.getChildAt(1);
-                            String newTxt = Long.toString(curOcc) + "/" + Long.toString(maxOcc);
-                            devicesView.setText(newTxt);
+                    boolean locationFound = false;
+                    Log.d(TAG + " Counter ", "" + dataSnapshot.getChildrenCount());
+                    View view = table.getChildAt(count);
+                    if (view instanceof TableRow) {
+                        // then, you can remove the the row you want...
+                        // for instance...
+                        TableRow row = (TableRow) view;
+                        for (int j = 0; j < row.getChildCount(); j++) {
+                            TextView tv = (TextView) row.getChildAt(0);
+                            String curText = tv.getText().toString();
+                            if (buildingName + " " + roomNumber == curText) {
+                                locationFound = true;
+                                TextView devicesView = (TextView) row.getChildAt(1);
+                                String newTxt = Long.toString(curOcc) + "/" + Long.toString(maxOcc);
+                                devicesView.setText(newTxt);
+                            }
                         }
+
+                        if (!locationFound) {
+                            int numberOfLocations = locationsList.size();
+                            Log.d(TAG, "numofLocs Value is: " + numberOfLocations);
+                            TableRow curRow = (TableRow) table.getChildAt(count);
+
+                            TextView curLocView = (TextView) curRow.getChildAt(0);
+                            TextView curDevView = (TextView) curRow.getChildAt(1);
+
+                            curLocView.setText(buildingName + " " + roomNumber);
+                            curDevView.setText(Long.toString(curOcc) + "/" + Long.toString(maxOcc));
+                        }
+
+
                     }
-
-                    if (!locationFound) {
-                        int numberOfLocations = locationsList.size();
-                        Log.d(TAG, "numofLocs Value is: " + numberOfLocations);
-                        TableRow curRow = (TableRow) table.getChildAt(numberOfLocations + 1);
-
-                        TextView curLocView = (TextView) curRow.getChildAt(0);
-                        TextView curDevView = (TextView) curRow.getChildAt(1);
-
-                        curLocView.setText(buildingName + " " + roomNumber);
-                        curDevView.setText(Long.toString(curOcc) + "/" + Long.toString(maxOcc));
-                    }
-
-
+                    count++;
                 }
-
             }
 
             @Override
