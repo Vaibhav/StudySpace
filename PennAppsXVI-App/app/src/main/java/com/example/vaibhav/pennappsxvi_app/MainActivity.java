@@ -94,27 +94,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
         FirebaseApp.initializeApp(this);
-
         setContentView(R.layout.activity_main);
-
         mPublishSwitch = (Switch) findViewById(R.id.publish_switch);
-
         mDatabase = FirebaseDatabase.getInstance().getReference();
         DatabaseReference AT1 = mDatabase.child("MC");
-
         table = (TableLayout) findViewById(R.id.MainTableLayout);
-
-
-        // Build the message that is going to be published. This contains the device name and a
-        // UUID.
-//        Student testStudent = new Student();
-//        testStudent.setName(getSaltString());
-//        Long timeStamp = new java.util.Date().getTime();
-//        Log.d(TAG, timeStamp.toString());
-//        testStudent.setTimestampIn(timeStamp);
-//        testStudent.setTimestampOut(timeStamp);
-//        mPubMessage = new Message(gson.toJson(testStudent).getBytes(Charset.forName("UTF-8")));
-
 
         mPublishSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
