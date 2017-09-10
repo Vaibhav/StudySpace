@@ -52,6 +52,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
@@ -75,6 +76,18 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     List<Student> students = new ArrayList<>();
     private static final Gson gson = new Gson();
 
+    protected String getSaltString() {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 18) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,13 +107,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         // Build the message that is going to be published. This contains the device name and a
         // UUID.
-        Student testStudent = new Student();
-        testStudent.setName("Tommy");
-        Long timeStamp = new java.util.Date().getTime();
-        Log.d(TAG, timeStamp.toString());
-        testStudent.setTimestampIn(timeStamp);
-        testStudent.setTimestampOut(timeStamp);
-        mPubMessage = new Message(gson.toJson(testStudent).getBytes(Charset.forName("UTF-8")));
+//        Student testStudent = new Student();
+//        testStudent.setName(getSaltString());
+//        Long timeStamp = new java.util.Date().getTime();
+//        Log.d(TAG, timeStamp.toString());
+//        testStudent.setTimestampIn(timeStamp);
+//        testStudent.setTimestampOut(timeStamp);
+//        mPubMessage = new Message(gson.toJson(testStudent).getBytes(Charset.forName("UTF-8")));
 
 
         mPublishSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -258,6 +271,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
      * TTLs.
      */
     private void publish() {
+
+        Student testStudent = new Student();
+        testStudent.setName(getSaltString());
+        Long timeStamp = new java.util.Date().getTime();
+        Log.d(TAG, timeStamp.toString());
+        testStudent.setTimestampIn(timeStamp);
+        testStudent.setTimestampOut(timeStamp);
+        mPubMessage = new Message(gson.toJson(testStudent).getBytes(Charset.forName("UTF-8")));
+
         Log.i(TAG, "Publishing");
         PublishOptions options = new PublishOptions.Builder()
                 .setStrategy(PUB_SUB_STRATEGY)
