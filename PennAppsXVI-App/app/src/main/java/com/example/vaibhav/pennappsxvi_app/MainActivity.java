@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private Message mPubMessage;
     private MessageListener mMessageListener;
     private ArrayAdapter<String> mNearbyDevicesArrayAdapter;
-    List<Student> students;
+    List<Student> students = new ArrayList<>();
 
     private static String getUUID(SharedPreferences sharedPreferences) {
         String uuid = sharedPreferences.getString(KEY_UUID, "");
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         table.setVisibility(View.VISIBLE);
                     } else {
                         unpublish();
-                        table.setVisibility(View.INVISIBLE);
+                        //table.setVisibility(View.INVISIBLE);
                     }
                 }
             }
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             publish();
             table.setVisibility(View.VISIBLE);
         } else if (!(mPublishSwitch.isChecked())) {
-            table.setVisibility(View.INVISIBLE);
+            //table.setVisibility(View.INVISIBLE);
         }
 
         AT1.addValueEventListener(new ValueEventListener() {
@@ -154,10 +154,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
                 long curOcc = 0;
                 long maxOcc = 0;
+                String buildingName, roomNumber = "test";
+
+                buildingName = dataSnapshot.getKey();
+
 
                 Log.d(TAG + " Count " ,"" + dataSnapshot.getChildrenCount());
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-
+                    roomNumber = postSnapshot.getKey();
                     curOcc = (long)postSnapshot.child("current_occupancy").getValue();
                     maxOcc = (long)postSnapshot.child("maximum_occupancy").getValue();
 
@@ -181,7 +185,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
                 boolean locationFound = false;
 
-                /*
                 View view = table.getChildAt(1);
                 if (view instanceof TableRow) {
                     // then, you can remove the the row you want...
@@ -190,10 +193,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     for (int j = 0; j < row.getChildCount(); j++) {
                         TextView tv = (TextView) row.getChildAt(0);
                         String curText = tv.getText().toString();
-                        if (locValue == curText) {
+                        if (buildingName + " " + roomNumber == curText) {
                             locationFound = true;
-                            TextView devicesView = (TextView) row.getChildAt(1);
-                            devicesView.setText(numDevicesValue.toString());
+                            TextView devicesView = (TextView)row.getChildAt(1);
+                            String newTxt = Long.toString(curOcc) + "/" + Long.toString(maxOcc);
+                            devicesView.setText(newTxt);
                         }
                     }
 
@@ -204,17 +208,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
                         TextView curLocView = (TextView) curRow.getChildAt(0);
                         TextView curDevView = (TextView) curRow.getChildAt(1);
-
-                        Log.d(TAG, "Location Value is: " + curLocView.getText());
-                        Log.d(TAG, "Devices Value is: " + curDevView.getText());
-
-                        curLocView.setText(locValue);
-                        curDevView.setText(numDevicesValue.toString());
+                        
+                        curLocView.setText(buildingName + " " + roomNumber);
+                        curDevView.setText(Long.toString(curOcc) + "/" + Long.toString(maxOcc));
                     }
 
 
                 }
-                */
 
             }
 
