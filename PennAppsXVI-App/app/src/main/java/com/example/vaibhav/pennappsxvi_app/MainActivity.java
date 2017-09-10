@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         // Build the message that is going to be published. This contains the device name and a
         // UUID.
         Student testStudent = new Student();
-        testStudent.setName("Bobby");
+        testStudent.setName("Tommy");
         Long timeStamp = new java.util.Date().getTime();
         Log.d(TAG, timeStamp.toString());
         testStudent.setTimestampIn(timeStamp);
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         table.setVisibility(View.VISIBLE);
                     } else {
                         unpublish();
-                        //table.setVisibility(View.INVISIBLE);
+                        table.setVisibility(View.INVISIBLE);
                     }
                 }
             }
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             publish();
             table.setVisibility(View.VISIBLE);
         } else if (!(mPublishSwitch.isChecked())) {
-            //table.setVisibility(View.INVISIBLE);
+            table.setVisibility(View.INVISIBLE);
         }
 
         AT1.addValueEventListener(new ValueEventListener() {
