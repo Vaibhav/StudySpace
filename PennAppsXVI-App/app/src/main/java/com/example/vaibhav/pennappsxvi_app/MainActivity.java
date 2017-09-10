@@ -145,8 +145,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 buildingName = dataSnapshot.getKey();
                 int count = 1;
 
-                Log.d(TAG + " Children " ,"" + dataSnapshot.getChildrenCount());
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                Log.d(TAG + " Children ", "" + dataSnapshot.getChildrenCount());
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     roomNumber = postSnapshot.getKey();
                     curOcc = (long) postSnapshot.child("current_occupancy").getValue();
                     maxOcc = (long) postSnapshot.child("maximum_occupancy").getValue();
